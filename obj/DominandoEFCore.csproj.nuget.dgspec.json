@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\augus\\Documents\\Estudo\\DevIO\\EFCoreParte2\\curso\\DominandoEFCore.csproj": {}
+    "C:\\Users\\augus\\Documents\\Estudo\\DevIO\\EFCoreParte2\\Curso\\DominandoEFCore.csproj": {}
   },
   "projects": {
-    "C:\\Users\\augus\\Documents\\Estudo\\DevIO\\EFCoreParte2\\curso\\DominandoEFCore.csproj": {
+    "C:\\Users\\augus\\Documents\\Estudo\\DevIO\\EFCoreParte2\\Curso\\DominandoEFCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\augus\\Documents\\Estudo\\DevIO\\EFCoreParte2\\curso\\DominandoEFCore.csproj",
+        "projectUniqueName": "C:\\Users\\augus\\Documents\\Estudo\\DevIO\\EFCoreParte2\\Curso\\DominandoEFCore.csproj",
         "projectName": "DominandoEFCore",
-        "projectPath": "C:\\Users\\augus\\Documents\\Estudo\\DevIO\\EFCoreParte2\\curso\\DominandoEFCore.csproj",
+        "projectPath": "C:\\Users\\augus\\Documents\\Estudo\\DevIO\\EFCoreParte2\\Curso\\DominandoEFCore.csproj",
         "packagesPath": "C:\\Users\\augus\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\augus\\Documents\\Estudo\\DevIO\\EFCoreParte2\\curso\\obj\\",
+        "outputPath": "C:\\Users\\augus\\Documents\\Estudo\\DevIO\\EFCoreParte2\\Curso\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -45,6 +45,8 @@
           "targetAlias": "net5.0",
           "dependencies": {
             "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[5.0.0, )"
             },

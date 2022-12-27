@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3j703RHjveiCZ3StLMXhS4CsHES8x3C9oTMkTSdGaPDKL/YkXDfSgAAXdf+xX/8K/yzbtYaLgCIpiTQvEzZvIw==",
+  "dgSpecHash": "+8dRJ3MctRp4ySvylnUV4UN6tCKOcUnW1te7puUAkPjAvByUR1P50NRvpasLqda84z+teG3j4jQ+x6qv5qDKxQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\augus\\Documents\\Estudo\\DevIO\\EFCoreParte2\\curso\\DominandoEFCore.csproj",
+  "projectFilePath": "C:\\Users\\augus\\Documents\\Estudo\\DevIO\\EFCoreParte2\\Curso\\DominandoEFCore.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\augus\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\augus\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
