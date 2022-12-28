@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace DominandoEFCore
@@ -11,14 +12,40 @@ namespace DominandoEFCore
             //Console.WriteLine("Hello World!");
             //FiltroGlobal();
             //IgnoreFiltroGlobal();
-            ConsultaProjetada();
+            //ConsultaProjetada();
+            ConsultaParametrizada();
         }
+
+        static void ConsultaParametrizada()
+        {
+            using var db = new Curso.Data.ApplicationContext();
+            Setup(db);
+
+            var id = new SqlParameter
+            {
+                Value = 1,
+                SqlDbType = System.Data.SqlDbType.Int
+            };
+
+            //var id = 0;//Tambem funciona, entity faz a de cima autom atico
+
+            var departamentos = db.Departamentos
+                .FromSqlRaw("SELECT * FROM Departamentos WHERE Id > {0}", id)
+                .Where(p => p.Excluido)
+                .ToList();
+
+            foreach (var departamento in departamentos)
+            {
+                Console.WriteLine($"Descrição: {departamento.Descricao}");
+            }
+        }
+
         static void ConsultaProjetada()
         {
             using var db = new Curso.Data.ApplicationContext();
             Setup(db);
 
-            var departamentos = db.Departamentos/*.IgnoreQueryFilters()*/
+            var departamentos = db.Departamentos
             .Where(x => x.Id > 0)
             .Select(p => new { p.Descricao, Funcionarios = p.Funcionarios.Select(f => f.Nome)})
             .ToList();
