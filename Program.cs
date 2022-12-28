@@ -10,9 +10,29 @@ namespace DominandoEFCore
         {
             //Console.WriteLine("Hello World!");
             //FiltroGlobal();
-            IgnoreFiltroGlobal();
+            //IgnoreFiltroGlobal();
+            ConsultaProjetada();
         }
+        static void ConsultaProjetada()
+        {
+            using var db = new Curso.Data.ApplicationContext();
+            Setup(db);
 
+            var departamentos = db.Departamentos/*.IgnoreQueryFilters()*/
+            .Where(x => x.Id > 0)
+            .Select(p => new { p.Descricao, Funcionarios = p.Funcionarios.Select(f => f.Nome)})
+            .ToList();
+
+            foreach (var departamento in departamentos)
+            {
+                Console.WriteLine($"Descrição: {departamento.Descricao}");
+
+                foreach (var funcionario in departamento.Funcionarios)
+                {
+                    Console.WriteLine($"Nome: {funcionario}");
+                }
+            }
+        }
         static void IgnoreFiltroGlobal()
         {
             using var db = new Curso.Data.ApplicationContext();
