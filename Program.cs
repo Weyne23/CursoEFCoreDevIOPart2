@@ -15,9 +15,29 @@ namespace DominandoEFCore
             //ConsultaProjetada();
             //ConsultaParametrizada();
             //ConsultaInterpolada();
-            ConsultaComTag();
+            //ConsultaComTag();
+            EntendendoConsulta1NN1();
         }
         
+        static void EntendendoConsulta1NN1()
+        {
+            using var db = new Curso.Data.ApplicationContext();
+            Setup(db);
+
+            // var departamentos = db.Departamentos
+            //     .Include(x => x.Funcionarios)
+            //     .ToList();
+
+            var funcionarios = db.Funcionarios
+                 .Include(x => x.Departamento)
+                 .ToList();
+
+            foreach (var funcionario in funcionarios)
+            {
+                Console.WriteLine($"Funcionario: {funcionario.Nome} Departamento: {funcionario.Departamento.Descricao}");
+            }
+        }
+
         static void ConsultaComTag()
         {
             using var db = new Curso.Data.ApplicationContext();
@@ -34,6 +54,7 @@ namespace DominandoEFCore
                 Console.WriteLine($"Descrição: {departamento.Descricao}");
             }
         }
+
         static void ConsultaInterpolada()
         {
             using var db = new Curso.Data.ApplicationContext();
