@@ -13,7 +13,44 @@ namespace DominandoEFCore
             //FiltroGlobal();
             //IgnoreFiltroGlobal();
             //ConsultaProjetada();
-            ConsultaParametrizada();
+            //ConsultaParametrizada();
+            //ConsultaInterpolada();
+            ConsultaComTag();
+        }
+        
+        static void ConsultaComTag()
+        {
+            using var db = new Curso.Data.ApplicationContext();
+            Setup(db);
+
+            var departamentos = db.Departamentos
+                .TagWith(@"Estou enviando um comentario para o servidor.
+                Segundo Comentario
+                Terceiro Comentario") //@ serve para colocar mais de 1 comentario
+                .ToList();
+
+            foreach (var departamento in departamentos)
+            {
+                Console.WriteLine($"Descrição: {departamento.Descricao}");
+            }
+        }
+        static void ConsultaInterpolada()
+        {
+            using var db = new Curso.Data.ApplicationContext();
+            Setup(db);
+
+            var id = 1;
+
+            //var id = 0;//Tambem funciona, entity faz a de cima autom atico
+
+            var departamentos = db.Departamentos
+                .FromSqlInterpolated($"SELECT * FROM Departamentos WHERE Id > {id}")
+                .ToList();
+
+            foreach (var departamento in departamentos)
+            {
+                Console.WriteLine($"Descrição: {departamento.Descricao}");
+            }
         }
 
         static void ConsultaParametrizada()
@@ -31,7 +68,7 @@ namespace DominandoEFCore
 
             var departamentos = db.Departamentos
                 .FromSqlRaw("SELECT * FROM Departamentos WHERE Id > {0}", id)
-                .Where(p => p.Excluido)
+                .Where(p => !p.Excluido)
                 .ToList();
 
             foreach (var departamento in departamentos)
