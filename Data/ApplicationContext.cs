@@ -16,7 +16,7 @@ namespace Curso.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             const string strConection = "Data source=(localdb)\\mssqllocaldb;Initial Catalog=DevIO-02;Integrated Security=true;pooling=true"; //MultipleActiveResultSets=true
-            optionsBuilder.UseSqlServer(strConection)
+            optionsBuilder.UseSqlServer(strConection, p => p.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery))
             .EnableSensitiveDataLogging()
             .LogTo(Console.WriteLine, LogLevel.Information);
         }

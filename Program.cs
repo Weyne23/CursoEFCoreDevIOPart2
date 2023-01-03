@@ -16,9 +16,33 @@ namespace DominandoEFCore
             //ConsultaParametrizada();
             //ConsultaInterpolada();
             //ConsultaComTag();
-            EntendendoConsulta1NN1();
+            //EntendendoConsulta1NN1();
+            DivisaoDeConsultas();
         }
         
+        static void DivisaoDeConsultas()
+        {
+            using var db = new Curso.Data.ApplicationContext();
+            Setup(db);
+
+            var departamentos = db.Departamentos
+                .Include(x => x.Funcionarios)
+                .Where(x => x.Id < 3)
+                //.AsSplitQuery() Feito de forma global, olhar o Context
+                .AsSingleQuery() //Para não executar o Split Query
+                .ToList();
+
+            foreach (var departamento in departamentos)
+            {
+                Console.WriteLine($"Descrição: {departamento.Descricao}");
+
+                foreach (var funcionario in departamento.Funcionarios)
+                {
+                    Console.WriteLine($"\tNome: {funcionario.Nome}");
+                }
+            }
+        }
+
         static void EntendendoConsulta1NN1()
         {
             using var db = new Curso.Data.ApplicationContext();
@@ -34,7 +58,7 @@ namespace DominandoEFCore
 
             foreach (var funcionario in funcionarios)
             {
-                Console.WriteLine($"Funcionario: {funcionario.Nome} Departamento: {funcionario.Departamento.Descricao}");
+                Console.WriteLine($"Funcionario: {funcionario.Nome} Descrição: {funcionario.Departamento.Descricao}");
             }
         }
 
