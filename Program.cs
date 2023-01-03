@@ -17,9 +17,29 @@ namespace DominandoEFCore
             //ConsultaInterpolada();
             //ConsultaComTag();
             //EntendendoConsulta1NN1();
-            DivisaoDeConsultas();
+            //DivisaoDeConsultas();
+            CriandoStoredProcedure();
         }
         
+        static void CriandoStoredProcedure()
+        {
+            var criarDepartamento = @"
+            CREATE OR ALTER PROCEDURE CriarDepartamento
+                @Descricao VARCHAR(50),
+                @Ativo bit
+            AS
+            BEGIN
+                INSERT INTO
+                    Departamentos(Descricao, Ativo, Excluido)
+                VALUES (@Descricao, @Ativo, 0)
+            END
+            ";
+
+            using var db = new Curso.Data.ApplicationContext();
+
+            db.Database.ExecuteSqlRaw(criarDepartamento);
+        }
+
         static void DivisaoDeConsultas()
         {
             using var db = new Curso.Data.ApplicationContext();
