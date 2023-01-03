@@ -19,14 +19,49 @@ namespace DominandoEFCore
             //EntendendoConsulta1NN1();
             //DivisaoDeConsultas();
             //CriandoStoredProcedure();
-            InserirDadosViaProcedure();
+            //InserirDadosViaProcedure();
+            //CriandoStoredProcedureDeConsulta();
+            ExecutarProcedure();
         }
         
+        static void ExecutarProcedure()
+        {
+            using var db = new Curso.Data.ApplicationContext();
+
+            var dep = new SqlParameter("@dep", "Departamento");
+            
+            var departamentos = db.Departamentos
+                .FromSqlRaw("execute GetDepartamentos @dep", dep)
+                .ToList();
+
+            foreach (var departamento in departamentos)
+            {
+                Console.WriteLine(departamento.Descricao);
+            }
+        }
+
+        static void CriandoStoredProcedureDeConsulta()
+        {
+            var criarDepartamento = @"
+            CREATE OR ALTER PROCEDURE GetDepartamentos
+                @Descricao VARCHAR(50)
+            AS
+            BEGIN
+                SELECT * FROM Departamentos
+                WHERE Descricao LIKE @Descricao + '%'
+            END
+            ";
+
+            using var db = new Curso.Data.ApplicationContext();
+
+            db.Database.ExecuteSqlRaw(criarDepartamento);
+        }
+
         static void InserirDadosViaProcedure()
         {
             using var db = new Curso.Data.ApplicationContext();
 
-            db.Database.ExecuteSqlRaw("execute CriarDepartamento @p0, @p1", "Departamento Via Procedure", true);
+            db.Database.ExecuteSqlRaw("execute CriarDepartamento @p0, @p1", "Departamento Via Procedure 2", true);
         }
 
         static void CriandoStoredProcedure()
