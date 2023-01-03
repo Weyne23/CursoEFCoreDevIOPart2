@@ -18,9 +18,17 @@ namespace DominandoEFCore
             //ConsultaComTag();
             //EntendendoConsulta1NN1();
             //DivisaoDeConsultas();
-            CriandoStoredProcedure();
+            //CriandoStoredProcedure();
+            InserirDadosViaProcedure();
         }
         
+        static void InserirDadosViaProcedure()
+        {
+            using var db = new Curso.Data.ApplicationContext();
+
+            db.Database.ExecuteSqlRaw("execute CriarDepartamento @p0, @p1", "Departamento Via Procedure", true);
+        }
+
         static void CriandoStoredProcedure()
         {
             var criarDepartamento = @"
